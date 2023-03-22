@@ -1,0 +1,15 @@
+<nav class="search-nav">
+  <div class="search-nav__input">
+    <img 
+    class="input__icon" 
+    src="./assets/icon/search.svg" 
+    alt="search icon">
+    <input 
+    class="input__field" 
+    type="text" 
+    placeholder="Title"
+    [(ngModel)]="titleFilter"
+    (input)="onSearch(titleFilter)"
+    >
+  </div>
+</nav>

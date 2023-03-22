@@ -1,0 +1,40 @@
+@import '../../../../variables';
+
+.footer {
+  background-color: #000;
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+
+  &__logo {
+    height: 48px;
+  }
+
+  &__stores {
+    display: flex;
+    gap: 14px
+    
+  }
+
+  &__copyright {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.4px;
+    color: #FFFFFF;
+  }
+  
+}
+.stores {
+  &__link {
+    width: fit-content;
+  }
+  &__logo {
+    width: 129px;
+  }
+
+}

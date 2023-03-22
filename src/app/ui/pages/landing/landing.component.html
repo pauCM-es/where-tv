@@ -1,0 +1,24 @@
+<app-search-nav
+  (searchFilter)="onSearch($event)"
+></app-search-nav>
+
+<section class="landing">
+  <div class="landing__container">
+    <h2 class="landing__title">Popular Movies</h2>
+
+    <section class="landing__list" >
+      <ng-container 
+      *ngFor="let movie of searchResult
+        | slice: (currentPage-1)*itemsPerPage : currentPage*itemsPerPage">
+        <app-movie-card [movie]="movie"></app-movie-card>
+      </ng-container>
+    </section>
+
+  </div>
+  <app-pagination
+    *ngIf="amountPages"
+    [currentPage]="currentPage"
+    [amountPages]="amountPages"
+    (goTo)="onGoTo($event)"
+  ></app-pagination>
+</section>

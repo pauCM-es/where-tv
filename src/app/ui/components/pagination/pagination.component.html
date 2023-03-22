@@ -1,0 +1,26 @@
+<section class="pagination">
+  <button 
+  class="pagination__arrow" 
+  [disabled]="currentPage === 1 && 'disabled'"
+  (click)="onGoTo(currentPage - 1)"
+  >
+    <img src="./assets/icon/left-chevron.svg" alt= "previous page button" >
+  </button>
+  <div class="pagination__pages">
+    <div 
+    *ngFor="let page of pages"
+    [ngClass]="page === currentPage 
+      ? 'pagination__page pagination__page--selected' 
+      : 'pagination__page'"
+      (click)="onGoTo(page)"
+    >{{page}}</div>
+  </div>
+  <button 
+  type="button" 
+  class="pagination__arrow" 
+  [disabled]="currentPage === amountPages && 'disabled'"
+  (click)="onGoTo(currentPage + 1)"
+  >
+    <img src="./assets/icon/right-chevron.svg" alt="next page button" >
+  </button>
+</section>

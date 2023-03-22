@@ -1,0 +1,17 @@
+<footer class="footer">
+  <div class="footer__stores">
+      <a 
+      *ngFor="let store of storesButtons"
+      class="stores__link" 
+      href="{{store.link}}" 
+      target="_blank">
+      <img 
+        class="stores__logo" 
+        src="{{store.imgSrc}}" 
+        alt="logo {{store.name}}">
+      </a>
+  </div>
+  <div class="footer__copyright">
+    © Copyright 2022 Dreadful Tomatoes. All rights reserved.
+  </div>
+</footer>

@@ -1,0 +1,13 @@
+@import '../../../../variables';
+
+.header {
+  background-color: #000000;
+  
+  &__title {
+    max-width: 1170px;
+    margin: 0 auto;
+    color: white;
+    padding: 12px
+  }
+
+}
