@@ -2,16 +2,12 @@
 
 .footer {
   background-color: #000;
-  height: 14rem;
+  height: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
-
-  &__logo {
-    height: 48px;
-  }
+  padding: 2rem 0;
 
   &__stores {
     display: flex;
