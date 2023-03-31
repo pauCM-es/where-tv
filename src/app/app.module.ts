@@ -11,6 +11,7 @@ import { ServicesModule } from './services/services.module';
 import { AppRoutingModule } from './app-routing.module';
 import { SearchNavComponent } from './ui/components/search-nav/search-nav.component';
 import { FilterPipe } from './ui/pipes/filter.pipe';
+import { DetailsComponent } from './ui/pages/details/details.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FilterPipe } from './ui/pipes/filter.pipe';
     LandingComponent,
     PaginationComponent,
     SearchNavComponent,
-    FilterPipe
+    FilterPipe,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

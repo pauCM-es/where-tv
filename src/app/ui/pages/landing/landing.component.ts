@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieModel } from 'src/app/application/movie/models/movie.model';
 import { GetAllMoviesUseCase } from 'src/app/application/movie/usecases/movie-get-all.usecase';
+import { GetSearchMovieUseCase } from 'src/app/application/movie/usecases/movie-get-search.usecase';
 import { MovieInterface } from '../../interfaces/movie-interface';
 
 @Component({
@@ -12,40 +13,34 @@ export class LandingComponent implements OnInit {
 
   movieList!: MovieModel[];
   searchResult: MovieModel[] = []
+  searchValue: string = ""
 
   currentPage: number = 1;
   itemsPerPage: number = 10;
   amountPages!: number;
   
-  constructor( private getAllMovies: GetAllMoviesUseCase) { }
+  constructor( private searchMovies: GetSearchMovieUseCase) { }
 
   ngOnInit(): void {
-    this.fetchMovies();
-
-    
   }
+
   createPaginator(list: MovieModel[]){
     let totalItems = list.length;
     this.amountPages = Math.ceil(totalItems / this.itemsPerPage) 
   }
 
-  fetchMovies(){
-    this.getAllMovies.execute().subscribe( res => {
-      console.log(res);
-      this.movieList = res.sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-        if (titleA < titleB) {
-          return -1;
-        }
-        if (titleA > titleB) {
-          return 1;
-        }
-        return 0
-      });
-      this.searchResult = [...this.movieList]
-      this.createPaginator(this.movieList) 
-    })
+  searchMovie(value: string){
+    if (value.length > 2) { 
+      this.searchMovies.execute(value).subscribe( res => {
+        console.log(res);
+        res.length > 50 
+          ? this.movieList = res.slice(0, 50)
+          : this.movieList = res
+        this.searchResult = [...this.movieList]
+        this.createPaginator(this.movieList) 
+      })
+      this.searchValue = ""
+    }
   }
 
   public onGoTo(page: number) {
@@ -53,6 +48,7 @@ export class LandingComponent implements OnInit {
   }
 
   public  onSearch(title: string) {
+    this.searchValue = title
     this.searchResult = []
     this.currentPage = 1
     this.movieList.forEach(movie => {

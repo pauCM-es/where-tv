@@ -1,0 +1,40 @@
+<section class="details" *ngIf="movieDetails">
+  <section class="details__poster">
+    <img class="poster__img" src={{movieDetails.poster}} alt="{{ movieDetails.title }} poster">
+    <div class="poster__rating">
+      <p>{{ movieDetails.user_rating }}</p>
+      <!-- <img src="./assets/icon/star.svg" alt="star rating icon"> -->
+    </div>
+  </section>
+
+  <section class="details__info">
+    <h2 class="info__title">{{ movieDetails.title }}</h2>
+
+    <div class="info__subtitle">
+      <p class="subtitle__year">{{ movieDetails.releaseYear }}</p>
+      <p class="subtitle__type">{{ movieDetails.type }}</p>
+      <p class="subtitle__duration">{{ movieDetails.runtime_minutes }} min</p>
+      <p class="subtitle__rating">{{ movieDetails.us_rating }}</p>
+    </div>
+
+    <div class="info__overview">
+      <div>
+        <h3 class="overview__title">OVERVIEW</h3>
+      </div>
+      <p>{{ movieDetails.description }}</p>
+      <div class="overview__genre">
+        <p>Genre</p>
+        <p><span *ngFor="let genre of movieDetails.genre_names">{{ genre }}, </span></p>
+      </div>
+    </div>
+
+    <div class="trailer">
+      <div>
+        <h3 class="trailer__title">TRAILER</h3>
+      </div>
+      <iframe width="500" height="300" [src]="safeURL" frameborder="0"></iframe>
+    </div>
+  </section>
+</section>
+
+
