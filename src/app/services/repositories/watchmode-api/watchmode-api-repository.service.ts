@@ -47,4 +47,9 @@ export class WatchmodeApiRepositoryService extends MovieRepository{
     .pipe(map( title => this.detailsMapper.mapFrom(title)))
   }
 
+
+  getSources(): Observable<any>{
+    return this.http.get('https://api.watchmode.com/v1/sources/?apiKey=lyucHbsFJHIDgnHuvMKV6mwKeWLC50Y1b0QnU7uG')
+  }
+
 }

@@ -1,9 +1,17 @@
 import { Mapper } from 'src/app/application/base/mapper';
-import { MovieDetailsModel } from 'src/app/application/movie/models/movie-details.model';
-import { TitleDetailsEntity } from './title-details-entity';
+import { MovieDetailsModel, SourceMovieModel } from 'src/app/application/movie/models/movie-details.model';
+import { SourceTitleEntity, TitleDetailsEntity } from './title-details-entity';
 
 export class MovieDetailsRepositoryMapper extends Mapper<TitleDetailsEntity, MovieDetailsModel> {
   mapFrom(param: TitleDetailsEntity): MovieDetailsModel {
+
+    // Remove duplicated sources
+    let uniqueList: SourceTitleEntity[] = []
+    param.sources.forEach( src => {
+      !uniqueList.some(el=> el.source_id === src.source_id) && uniqueList.push(src)
+    })
+    
+
     return {
       id: param.id,
       title: param.title,
@@ -20,7 +28,9 @@ export class MovieDetailsRepositoryMapper extends Mapper<TitleDetailsEntity, Mov
       network_names: param.network_names,
       trailer: param.trailer.replace('watch?v=', 'embed/'),
       trailer_thumbnail: param.trailer_thumbnail,
-      sources: { ...param.sources.map(src => {
+      sources: [ 
+        ...uniqueList
+        .map(src => {
         return {
           source_id: src.source_id,
           name: src.name,
@@ -28,9 +38,8 @@ export class MovieDetailsRepositoryMapper extends Mapper<TitleDetailsEntity, Mov
           seasons: src.seasons,
           episodes: src.episodes,
           }
-        })}
-      }
-    };
+        })]
+    }}
   
 
   // mapTo(param: MovieDetailsModel): TitleDetailsEntity {}

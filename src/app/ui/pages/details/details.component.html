@@ -1,5 +1,6 @@
 <section class="details" *ngIf="movieDetails">
-  <section class="details__poster">
+  <div class="details__nav"><a href="/" class="details__nav__link">Search Titles</a></div>
+  <section class="details__poster-container">
     <img class="poster__img" src={{movieDetails.poster}} alt="{{ movieDetails.title }} poster">
     <div class="poster__rating">
       <p>{{ movieDetails.user_rating }}</p>
@@ -7,7 +8,7 @@
     </div>
   </section>
 
-  <section class="details__info">
+  <section class="details__info-container">
     <h2 class="info__title">{{ movieDetails.title }}</h2>
 
     <div class="info__subtitle">
@@ -17,22 +18,42 @@
       <p class="subtitle__rating">{{ movieDetails.us_rating }}</p>
     </div>
 
-    <div class="info__overview">
-      <div>
-        <h3 class="overview__title">OVERVIEW</h3>
-      </div>
-      <p>{{ movieDetails.description }}</p>
+    <div  class="info__section-nav">
+      <h3 
+      [ngClass]="sectionSelected === 'overview' ? 'info__section section--selected' : 'info__section'"
+      (click)="selectSection('overview')"
+      >OVERVIEW</h3>
+      <h3 
+      [ngClass]="sectionSelected === 'trailer' ? 'info__section section--selected' : 'info__section'"
+      (click)="selectSection('trailer')"
+      >TRAILER</h3>
+      <h3 
+      [ngClass]="sectionSelected === 'sources' ? 'info__section section--selected' : 'info__section'"
+      (click)="selectSection('sources')"
+      >SOURCES</h3>
+    </div>
+
+    <div *ngIf="sectionSelected === 'overview'" class="info__overview">
+      <p class="overview__description">{{ movieDetails.description }}</p>
       <div class="overview__genre">
         <p>Genre</p>
         <p><span *ngFor="let genre of movieDetails.genre_names">{{ genre }}, </span></p>
       </div>
+      <div class="overview__network">
+        <p>Network</p>
+        <p><span *ngFor="let network of movieDetails.network_names">{{ network }}, </span></p>
+      </div>
     </div>
 
-    <div class="trailer">
-      <div>
-        <h3 class="trailer__title">TRAILER</h3>
+    <div *ngIf="sectionSelected === 'trailer'" class="info__trailer">
+      <iframe [src]="safeURL" frameborder="0"></iframe>
+    </div>
+
+    <div *ngIf="sectionSelected === 'sources'" class="info__sources">
+      <p>sources</p>
+      <div *ngFor="let src of movieDetails.sources">
+        <a href={{src.web_url}} target="_blank">{{ src.name }}</a>
       </div>
-      <iframe width="500" height="300" [src]="safeURL" frameborder="0"></iframe>
     </div>
   </section>
 </section>
